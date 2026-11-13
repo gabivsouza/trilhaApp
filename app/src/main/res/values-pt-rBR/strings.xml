@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">trilhaApp</string>
+    <string name="mapType">Escolha o Tipo de Mapa:</string>
+    <string name="navType">Escolha o Tipo de Navegação:</string>
+    <string name="btn_mapVet">Mapa Vetorial</string>
+    <string name="btn_mapSat">Mapa Satélite</string>
+    <string name="btn_Nup">Navegação Norte para Cima</string>
+    <string name="btn_Cup">Navegação Centrada no Usuário</string>
+    <string name="textConfig">Configurações Gerais</string>
+    <string name="btn_regHike">Registrar Trilha</string>
+    <string name="btn_viewHike">Visualizar Trilha</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_view">ViewActivity</string>
+</resources>

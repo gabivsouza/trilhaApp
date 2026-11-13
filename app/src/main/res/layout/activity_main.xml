@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_mapSat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_mapSat"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Cup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.735"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.578" />
+
+    <Button
+        android:id="@+id/btn_Cup"
+        android:layout_width="196dp"
+        android:layout_height="103dp"
+        android:text="@string/btn_Cup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="437dp" />
+
+    <Button
+        android:id="@+id/btn_Nup"
+        android:layout_width="170dp"
+        android:layout_height="107dp"
+        android:text="@string/btn_Nup"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Cup"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="433dp" />
+
+    <Button
+        android:id="@+id/btn_mapVet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_mapVet"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mapSat"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="229dp" />
+
+    <TextView
+        android:id="@+id/mapType"
+        android:layout_width="163dp"
+        android:layout_height="16dp"
+        android:text="@string/mapType"
+        app:layout_constraintBottom_toTopOf="@+id/navForm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/navForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/navType"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textConfig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textConfig"
+        app:layout_constraintBottom_toTopOf="@+id/mapType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_regHike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="76dp"
+        android:text="@string/btn_regHike"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Nup"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_viewHike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="@string/btn_viewHike"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_regHike"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Cup"
+        app:layout_constraintVertical_bias="0.468" />
+</androidx.constraintlayout.widget.ConstraintLayout>

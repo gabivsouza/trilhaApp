@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">trilhaApp</string>
+    <string name="mapType">Choose the Map Type:</string>
+    <string name="navType">Choose the Navigation Type:</string>
+    <string name="btn_mapVet">Vectorial Map</string>
+    <string name="btn_mapSat">Satellite Map</string>
+    <string name="btn_Nup">Navigation North Up</string>
+    <string name="btn_Cup">Navigation User Centered</string>
+    <string name="textConfig">Configurations</string>
+    <string name="btn_regHike">Register Hike</string>
+    <string name="btn_viewHike">View Hike</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_view" >ViewActivity</string>
+
+</resources>
