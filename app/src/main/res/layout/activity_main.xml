@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".MainActivity">
+
+    <!-- Título da Tela -->
+    <TextView
+        android:id="@+id/textConfig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/textConfig"
+        android:textColor="#1B5E20"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Seção 1: Tipo de Mapa -->
+    <TextView
+        android:id="@+id/mapType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/mapType"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textConfig" />
+
+    <Button
+        android:id="@+id/btn_mapVet"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btn_mapVet"
+        app:backgroundTint="#2E7D32"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mapSat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapType" />
+
+    <Button
+        android:id="@+id/btn_mapSat"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_mapSat"
+        app:backgroundTint="#78909C"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_mapVet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_mapVet"
+        app:layout_constraintTop_toTopOf="@+id/btn_mapVet" />
+
+    <!-- Seção 2: Forma de Navegação -->
+    <TextView
+        android:id="@+id/navForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/navType"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_mapVet" />
+
+    <Button
+        android:id="@+id/btn_Nup"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btn_Nup"
+        app:backgroundTint="#2E7D32"
+        app:cornerRadius="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Cup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navForm" />
+
+    <Button
+        android:id="@+id/btn_Cup"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_Cup"
+        app:backgroundTint="#78909C"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_Nup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_Nup"
+        app:layout_constraintTop_toTopOf="@+id/btn_Nup" />
+
+    <!-- Botões de Ação (Navegação para as outras telas) -->
+    <Button
+        android:id="@+id/btn_regHike"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_regHike"
+        app:backgroundTint="#1B5E20"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_viewHike"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_viewHike"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_viewHike"
+        app:backgroundTint="#1565C0"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_regHike"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_regHike"
+        app:layout_constraintTop_toTopOf="@+id/btn_regHike" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
