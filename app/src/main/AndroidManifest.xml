@@ -39,6 +39,11 @@
             android:name=".RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <uses-permission
+            android:name="android.permission.ACCESS_FINE_LOCATION" />
+        <uses-permission
+            android:name="android.permission.ACCESS_COARSE_LOCATION" />
     </application>
 
 </manifest>

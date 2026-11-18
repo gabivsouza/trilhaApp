@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HikeApp</string>
+    <string name="mapType">Escolha o Tipo do Mapa:</string>
+    <string name="navType">Escolha o Tipo de Navegação:</string>
+    <string name="btn_mapVet">Mapa Vetorial</string>
+    <string name="btn_mapSat">Mapa Satélite</string>
+    <string name="btn_Nup">Navegação Norte pra Cima</string>
+    <string name="btn_Cup">Navegação Centrado no Usuário</string>
+    <string name="textConfig">Configuração</string>
+    <string name="btn_regHike">Registrar Trilha</string>
+    <string name="btn_viewHike">Ver a Trilha</string>
+    <string name="title_activity_maps">Mapas Atividade</string>
+    <string name="title_activity_view">Ver Atividade</string>
+    <string name="title_activity_register">Registrar Trilha</string>
+    <string name="reg_duration_default">Duração: 00:00:00</string>
+    <string name="reg_distance_default">Distância: 0.00 km</string>
+    <string name="reg_speed_default">Velocidade: 0.0 km/h (Máx: 0.0)</string>
+    <string name="reg_duration_format">Duração: %1$s</string>
+    <string name="reg_distance_format">Distância: %1$.2f km</string>
+    <string name="reg_speed_format">Velocidade: %1$.1f km/h (Máx: %2$.1f)</string>
+    <string name="btn_start_hike">Começar Trilha</string>
+    <string name="btn_finish_hike">Terminar &amp; Salvar</string>
+    <string name="reg_permission_denied">Permição de localização é nexessária para seguir a sua trilha</string>
+    <string name="reg_hike_started">Sua trilha começou</string>
+    <string name="reg_hike_saved">Trilha salva! Distância: %1$.2f km</string>
+    <string name="reg_you_marker">Você</string>
+</resources>

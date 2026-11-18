@@ -12,6 +12,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 
+import com.google.android.gms.maps.GoogleMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -161,5 +163,8 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setBackgroundTintList(btnNup, ColorStateList.valueOf(isCourseUp ? corInativo : corAtivo));
         ViewCompat.setBackgroundTintList(btnCup, ColorStateList.valueOf(isCourseUp ? corAtivo : corInativo));
     }
+
 }
+
+
 
