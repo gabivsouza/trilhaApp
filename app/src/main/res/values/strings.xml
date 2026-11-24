@@ -1,20 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HikeApp</string>
+
     <!-- ConfigurationActivity -->
+    <string name="textConfig">Configurations</string>
     <string name="mapType">Choose the Map Type:</string>
     <string name="navType">Choose the Navigation Type:</string>
     <string name="btn_mapVet">Vectorial Map</string>
     <string name="btn_mapSat">Satellite Map</string>
     <string name="btn_Nup">Navigation North Up</string>
-    <string name="btn_Cup">Navigation User Centered</string>
-    <string name="textConfig">Configurations</string>
+    <string name="btn_Cup">Navigation Course Up</string>
     <string name="btn_regHike">Register Hike</string>
     <string name="btn_viewHike">View Hike</string>
-    <!-- RegisterActivity -->
+
+    <!-- Títulos das Activities -->
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="title_activity_view">ViewActivity</string>
-    <!-- ConsultActivity -->
     <string name="title_activity_register">Register Hike</string>
+    <string name="title_activity_view">Consult Hikes</string>
+    <string name="title_activity_view_hike">View Hike</string>
+
+    <!-- RegisterActivity -->
     <string name="reg_duration_default">Duration: 00:00:00</string>
     <string name="reg_distance_default">Distance: 0.00 km</string>
     <string name="reg_speed_default">Speed: 0.0 km/h (Max: 0.0)</string>
@@ -27,6 +32,23 @@
     <string name="reg_hike_started">Tracking started!</string>
     <string name="reg_hike_saved">Hike saved! Distance: %1$.2f km</string>
     <string name="reg_you_marker">You</string>
-    <string name="title_activity_view_hike">ViewHikeActivity</string>
 
+    <!-- ConsultActivity & item_hike -->
+    <string name="consult_title">Registered Hikes</string>
+    <string name="consult_delete_range">Delete by Period</string>
+    <string name="consult_delete_all">Delete All</string>
+    <string name="consult_empty">No hikes registered yet.</string>
+    <string name="item_hike_name_default">Hike Name</string>
+    <string name="item_hike_info_default">Start: 00/00/0000 | Distance: 0.00 km</string>
+    <string name="action_consult">Consult</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- ViewHikeActivity -->
+    <string name="view_hike_name_default">Hike</string>
+    <string name="view_start_default">Start: --/--/---- --:--</string>
+    <string name="view_distance_default">Distance: 0.00 km</string>
+    <string name="view_duration_default">Duration: 00:00:00</string>
+    <string name="view_avg_speed_default">Average Speed: 0.0 km/h</string>
+    <string name="view_max_speed_default">Max Speed: 0.0 km/h</string>
 </resources>

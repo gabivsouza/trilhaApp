@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trilhas Registradas"
+        android:text="@string/consult_title"
         android:textColor="#1B5E20"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -27,7 +27,7 @@
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:backgroundTint="#EF6C00"
-            android:text="Apagar Período"
+            android:text="@string/consult_delete_range"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
 
@@ -38,7 +38,7 @@
             android:layout_marginStart="6dp"
             android:layout_weight="1"
             android:backgroundTint="#C62828"
-            android:text="Apagar Todas"
+            android:text="@string/consult_delete_all"
             android:textColor="#FFFFFF"
             android:textSize="13sp" />
     </LinearLayout>
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="Nenhuma trilha registrada até o momento."
+        android:text="@string/consult_empty"
         android:textColor="#757575"
         android:textSize="16sp"
         android:visibility="gone" />

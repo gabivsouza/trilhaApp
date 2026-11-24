@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.CameraPosition;
 
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +27,7 @@ public class ViewHikeActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private long trilhaId;
     private HikeHelp dbHelper;
+    private String tipoNavegacao;
 
     private TextView tvNomeTrilha, tvDataInicio, tvDistanciaTotal, tvDuracao, tvVelMedia, tvVelMaxima;
 
@@ -68,6 +70,66 @@ public class ViewHikeActivity extends FragmentActivity implements OnMapReadyCall
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         carregarDadosDaTrilha();
+
+        // Dentro de onMapReady(@NonNull GoogleMap googleMap):
+        SharedPreferences prefs = getSharedPreferences(ConfigurationActivity.PREFS_NAME, MODE_PRIVATE);
+        String tipoMapa = prefs.getString(ConfigurationActivity.KEY_MAP_TYPE, ConfigurationActivity.MAP_VETORIAL);
+        tipoNavegacao = prefs.getString(ConfigurationActivity.KEY_NAV_TYPE, ConfigurationActivity.NAV_NORTH_UP);
+    }
+
+    private void desenharTrajetoNoMapa(List<LatLng> pontos) {
+        if (pontos == null || pontos.isEmpty()) {
+            Toast.makeText(this, getString(R.string.view_no_points), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        PolylineOptions linha = new PolylineOptions()
+                .addAll(pontos)
+                .width(10f)
+                .color(Color.parseColor("#2E7D32"));
+        mMap.addPolyline(linha);
+
+        mMap.addMarker(new MarkerOptions().position(pontos.get(0)).title(getString(R.string.view_marker_start)));
+        if (pontos.size() > 1) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(pontos.get(pontos.size() - 1))
+                    .title(getString(R.string.view_marker_end)));
+        }
+
+        // Calcula o rumo (bearing) inicial da trilha caso Course Up esteja ativo
+        float rumoInicial = 0f;
+        if (tipoNavegacao.equals(ConfigurationActivity.NAV_COURSE_UP) && pontos.size() >= 2) {
+            float[] resultados = new float[3];
+            android.location.Location.distanceBetween(
+                    pontos.get(0).latitude, pontos.get(0).longitude,
+                    pontos.get(1).latitude, pontos.get(1).longitude,
+                    resultados
+            );
+            rumoInicial = resultados[1];
+        }
+
+        final float bearingFinal = rumoInicial;
+
+        mMap.setOnMapLoadedCallback(() -> {
+            if (pontos.size() == 1) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pontos.get(0), 16f));
+            } else {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (LatLng p : pontos) {
+                    builder.include(p);
+                }
+                LatLngBounds limites = builder.build();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(limites, 120));
+
+                // Rotaciona o mapa para o rumo da trilha se Course Up estiver selecionado
+                if (tipoNavegacao.equals(ConfigurationActivity.NAV_COURSE_UP)) {
+                    CameraPosition cameraComRumo = new CameraPosition.Builder(mMap.getCameraPosition())
+                            .bearing(bearingFinal)
+                            .build();
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraComRumo));
+                }
+            }
+        });
     }
 
     private void carregarDadosDaTrilha() {

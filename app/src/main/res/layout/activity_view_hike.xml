@@ -32,7 +32,7 @@
             android:id="@+id/tvNomeTrilha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trilha"
+            android:text="@string/view_hike_name_default"
             android:textColor="#1B5E20"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Início: --/--/---- --:--"
+            android:text="@string/view_start_default"
             android:textColor="#212121"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Distância: 0,00 km"
+            android:text="@string/view_distance_default"
             android:textColor="#424242" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Duração: 00:00:00"
+            android:text="@string/view_duration_default"
             android:textColor="#424242" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Velocidade Média: 0,0 km/h"
+            android:text="@string/view_avg_speed_default"
             android:textColor="#424242" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Velocidade Máxima: 0,0 km/h"
+            android:text="@string/view_max_speed_default"
             android:textColor="#424242" />
 
     </LinearLayout>
