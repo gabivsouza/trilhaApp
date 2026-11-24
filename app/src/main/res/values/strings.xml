@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HikeApp</string>
-    <!-- MainActivity -->
+    <!-- ConfigurationActivity -->
     <string name="mapType">Choose the Map Type:</string>
     <string name="navType">Choose the Navigation Type:</string>
     <string name="btn_mapVet">Vectorial Map</string>
@@ -10,10 +10,10 @@
     <string name="textConfig">Configurations</string>
     <string name="btn_regHike">Register Hike</string>
     <string name="btn_viewHike">View Hike</string>
-    <!-- MapsActivity -->
+    <!-- RegisterActivity -->
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_view">ViewActivity</string>
-    <!-- RegisterActivity -->
+    <!-- ConsultActivity -->
     <string name="title_activity_register">Register Hike</string>
     <string name="reg_duration_default">Duration: 00:00:00</string>
     <string name="reg_distance_default">Distance: 0.00 km</string>
@@ -27,33 +27,5 @@
     <string name="reg_hike_started">Tracking started!</string>
     <string name="reg_hike_saved">Hike saved! Distance: %1$.2f km</string>
     <string name="reg_you_marker">You</string>
-
-    <!--
-    2. Símbolos no strings.xml
-    &amp;: É o código usado no XML para exibir o símbolo & na tela.
-    Como o caractere & sozinho é reservado pela linguagem XML para comandos internos,
-    escrever Finish & Save direto gera erro de compilação;
-    usando Finish &amp; Save, o Android renderiza Finish & Save normalmente no botão.
-
-    Marcadores de formatação (%1$s, %1$.1f, %1$.2f, %2$.1f):
-    Funcionam como "lacunas" dentro do texto fixo que o Java preenche na hora em que o app roda,
-    usando o método getString(R.string.nome, valor1, valor2).
-
-    Cada pedaço do código tem uma função:
-
-    %1$ e %2$: Indicam qual variável enviada pelo Java entra naquela posição
-    (%1$ pega a primeira variável, %2$ pega a segunda).
-
-    s: Indica que o valor inserido será um texto (String).
-    Por exemplo, Duration: %1$s vira Duration: 00:15:30.
-
-    .1f e .2f: Indicam que o valor será um número decimal (float ou double) arredondado:
-
-    .1f limita a 1 casa decimal — Speed: %1$.1f km/h (Max: %2$.1f) vira
-    Speed: 5.4 km/h (Max: 8.2).
-
-    .2f limita a 2 casas decimais — Distance: %1$.2f km vira Distance: 3.45 km.-->
-
-
 
 </resources>

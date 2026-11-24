@@ -61,7 +61,7 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         Baixa e adiciona ao projeto a biblioteca oficial de localização do Google
         (FusedLocationProviderClient).
         Sem essa linha no Gradle,
-        o Android Studio não reconhece as classes usadas na RegisterActivity para ler o GPS
+        o Android Studio não reconhece as classes usadas na ConsultActivity para ler o GPS
         (LocationRequest, LocationCallback, LocationServices) e acusa erro no código.
      */
 
@@ -75,7 +75,7 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
     private Polyline trilhaPolyline;
     private final List<LatLng> listaPontos = new ArrayList<>();
 
-    // Configurações lidas da MainActivity
+    // Configurações lidas da ConfigurationActivity
     private String tipoMapa;
     private String tipoNavegacao;
 
@@ -115,10 +115,10 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         btnIniciarTrilha = findViewById(R.id.btnIniciarTrilha);
         btnFinalizarTrilha = findViewById(R.id.btnFinalizarTrilha);
 
-        // Lê as preferências salvas na MainActivity
-        SharedPreferences prefs = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
-        tipoMapa = prefs.getString(MainActivity.KEY_MAP_TYPE, MainActivity.MAP_VETORIAL);
-        tipoNavegacao = prefs.getString(MainActivity.KEY_NAV_TYPE, MainActivity.NAV_NORTH_UP);
+        // Lê as preferências salvas na ConfigurationActivity
+        SharedPreferences prefs = getSharedPreferences(ConfigurationActivity.PREFS_NAME, MODE_PRIVATE);
+        tipoMapa = prefs.getString(ConfigurationActivity.KEY_MAP_TYPE, ConfigurationActivity.MAP_VETORIAL);
+        tipoNavegacao = prefs.getString(ConfigurationActivity.KEY_NAV_TYPE, ConfigurationActivity.NAV_NORTH_UP);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -139,7 +139,7 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         // 1. Aplica o tipo de mapa escolhido
-        if (tipoMapa.equals(MainActivity.MAP_SATELITE)) {
+        if (tipoMapa.equals(ConfigurationActivity.MAP_SATELITE)) {
             mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         } else {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -265,7 +265,7 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         // 2. Ajusta a câmera conforme o modo escolhido (Course Up vs North Up)
-        if (tipoNavegacao.equals(MainActivity.NAV_COURSE_UP) && location.hasBearing()) {
+        if (tipoNavegacao.equals(ConfigurationActivity.NAV_COURSE_UP) && location.hasBearing()) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(pontoAtual)
                     .zoom(17f)
@@ -296,7 +296,7 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         btnFinalizarTrilha.setEnabled(false);
 
         Toast.makeText(this, getString(R.string.reg_hike_saved, distanciaTotalKm), Toast.LENGTH_LONG).show();
-        finish(); // Volta para a MainActivity
+        finish(); // Volta para a ConfigurationActivity
     }
 
     private String formatarTempo(long millis) {
