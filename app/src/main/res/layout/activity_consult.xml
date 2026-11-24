@@ -1,72 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/painelResumo"
-        android:layout_width="0dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="#EEFFFFFF"
-        android:elevation="6dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:text="Trilhas Registradas"
+        android:textColor="#1B5E20"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvDataInicio"
-            android:layout_width="wrap_content"
+    <!-- Botões de exclusão em lote (por intervalo e todas) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnApagarIntervalo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Início: --/--/---- --:--"
-            android:textColor="#212121"
-            android:textStyle="bold" />
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="#EF6C00"
+            android:text="Apagar Período"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/tvDistanciaTotal"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnApagarTodas"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Distância: 0,00 km"
-            android:textColor="#424242" />
-
-        <TextView
-            android:id="@+id/tvDuracao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Duração: 00:00:00"
-            android:textColor="#424242" />
-
-        <TextView
-            android:id="@+id/tvVelMedia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Velocidade Média: 0,0 km/h"
-            android:textColor="#424242" />
-
-        <TextView
-            android:id="@+id/tvVelMaxima"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Velocidade Máxima: 0,0 km/h"
-            android:textColor="#424242" />
-
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:backgroundTint="#C62828"
+            android:text="Apagar Todas"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvListaVazia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Nenhuma trilha registrada até o momento."
+        android:textColor="#757575"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/lvTrilhas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:dividerHeight="8dp" />
+
+</LinearLayout>

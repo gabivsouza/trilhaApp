@@ -1,136 +1,189 @@
 package com.example.trilhaapp;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class ConsultActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ConsultActivity extends AppCompatActivity {
 
-    private GoogleMap mMap;
-    private long trilhaId;
-
-    private TextView tvDataInicio, tvDistanciaTotal, tvDuracao, tvVelMedia, tvVelMaxima;
+    private HikeHelp dbHelper;
+    private ListView lvTrilhas;
+    private TextView tvListaVazia;
+    private List<Hike> listaTrilhas = new ArrayList<>();
+    private TrilhaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consult);
 
-        // 1. Liga os TextViews do painel de resumo
-        tvDataInicio = findViewById(R.id.tvDataInicio);
-        tvDistanciaTotal = findViewById(R.id.tvDistanciaTotal);
-        tvDuracao = findViewById(R.id.tvDuracao);
-        tvVelMedia = findViewById(R.id.tvVelMedia);
-        tvVelMaxima = findViewById(R.id.tvVelMaxima);
+        dbHelper = new HikeHelp(this);
+        lvTrilhas = findViewById(R.id.lvTrilhas);
+        tvListaVazia = findViewById(R.id.tvListaVazia);
+        Button btnApagarIntervalo = findViewById(R.id.btnApagarIntervalo);
+        Button btnApagarTodas = findViewById(R.id.btnApagarTodas);
 
-        // 2. Recebe o ID da trilha clicada na ViewActivity
-        trilhaId = getIntent().getLongExtra("TRILHA_ID", -1);
+        adapter = new TrilhaAdapter();
+        lvTrilhas.setAdapter(adapter);
 
-        // 3. Inicializa o fragmento do mapa
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        btnApagarIntervalo.setOnClickListener(v -> iniciarExclusaoPorIntervalo());
+        btnApagarTodas.setOnClickListener(v -> confirmarApagarTodas());
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-
-
-    //Retorna o mapa quando pronto
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Aplica o tipo de mapa escolhido na ConfigurationActivity
-        SharedPreferences prefs = getSharedPreferences(ConfigurationActivity.PREFS_NAME, MODE_PRIVATE);
-        String tipoMapa = prefs.getString(ConfigurationActivity.KEY_MAP_TYPE, ConfigurationActivity.MAP_VETORIAL);
-
-        if (tipoMapa.equals(ConfigurationActivity.MAP_SATELITE)) {
-            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        } else {
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }
-
-        carregarDadosDaTrilha();
+    protected void onResume() {
+        super.onResume();
+        carregarListaTrilhas();
     }
 
-    private void carregarDadosDaTrilha() {
-        if (trilhaId == -1) {
-            Toast.makeText(this, "Nenhuma trilha selecionada.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // TODO: Quando o SQLite estiver pronto, buscar aqui pelo 'trilhaId':
-        // 1. Preencher os TextViews com os dados salvos da trilha:
-        //    tvDataInicio.setText("Início: " + trilha.getDataInicio());
-        //    tvDistanciaTotal.setText(String.format("Distância: %.2f km", trilha.getDistanciaKm()));
-        //    tvDuracao.setText("Duração: " + trilha.getDuracao());
-        //    tvVelMedia.setText(String.format("Velocidade Média: %.1f km/h", trilha.getVelMedia()));
-        //    tvVelMaxima.setText(String.format("Velocidade Máxima: %.1f km/h", trilha.getVelMaxima()));
-
-        // 2. Buscar a lista de coordenadas (LatLng) dessa trilha e chamar o método abaixo:
-        List<LatLng> pontosDaTrilha = new ArrayList<>();
-        desenharTrajetoNoMapa(pontosDaTrilha);
+    private void carregarListaTrilhas() {
+        listaTrilhas = dbHelper.listarTodasTrilhas();
+        adapter.notifyDataSetChanged();
+        tvListaVazia.setVisibility(listaTrilhas.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
-    private void desenharTrajetoNoMapa(List<LatLng> pontos) {
-        if (pontos == null || pontos.isEmpty()) {
-            return;
-        }
+    // Edita o nome da trilha selecionada
+    private void exibirDialogoEditarNome(Hike trilha) {
+        EditText inputNome = new EditText(this);
+        inputNome.setText(trilha.getNome());
+        inputNome.setSelection(trilha.getNome().length());
 
-        // Desenha a linha do percurso
-        PolylineOptions linha = new PolylineOptions()
-                .addAll(pontos)
-                .width(10f)
-                .color(Color.parseColor("#2E7D32")); // Verde
-        mMap.addPolyline(linha);
+        new AlertDialog.Builder(this)
+                .setTitle("Editar Nome da Trilha")
+                .setView(inputNome)
+                .setPositiveButton("Salvar", (dialog, which) -> {
+                    String novoNome = inputNome.getText().toString().trim();
+                    if (!novoNome.isEmpty()) {
+                        dbHelper.atualizarNomeTrilha(trilha.getId(), novoNome);
+                        carregarListaTrilhas();
+                        Toast.makeText(this, "Nome atualizado!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
-        // Marca o ponto de início e o ponto final
-        mMap.addMarker(new MarkerOptions().position(pontos.get(0)).title("Início da Trilha"));
-        if (pontos.size() > 1) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(pontos.get(pontos.size() - 1))
-                    .title("Fim da Trilha"));
-        }
+    // Apaga uma trilha específica
+    private void confirmarApagarTrilha(Hike trilha) {
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar Trilha")
+                .setMessage("Deseja apagar a trilha \"" + trilha.getNome() + "\"?")
+                .setPositiveButton("Apagar", (dialog, which) -> {
+                    dbHelper.apagarTrilha(trilha.getId());
+                    carregarListaTrilhas();
+                    Toast.makeText(this, "Trilha apagada.", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
-        // Centraliza e ajusta o zoom para caber a trilha inteira na tela
-        mMap.setOnMapLoadedCallback(() -> {
-            if (pontos.size() == 1) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pontos.get(0), 16f));
-            } else {
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                for (LatLng p : pontos) {
-                    builder.include(p);
+    // Apaga trilhas em um determinado intervalo de datas (Data Inicial -> Data Final)
+    private void iniciarExclusaoPorIntervalo() {
+        Calendar hoje = Calendar.getInstance();
+        Toast.makeText(this, "Selecione a DATA INICIAL", Toast.LENGTH_SHORT).show();
+
+        new DatePickerDialog(this, (view, anoIni, mesIni, diaIni) -> {
+            Calendar calInicio = Calendar.getInstance();
+            calInicio.set(anoIni, mesIni, diaIni, 0, 0, 0);
+            calInicio.set(Calendar.MILLISECOND, 0);
+
+            Toast.makeText(this, "Selecione a DATA FINAL", Toast.LENGTH_SHORT).show();
+            new DatePickerDialog(this, (view2, anoFim, mesFim, diaFim) -> {
+                Calendar calFim = Calendar.getInstance();
+                calFim.set(anoFim, mesFim, diaFim, 23, 59, 59);
+                calFim.set(Calendar.MILLISECOND, 999);
+
+                if (calFim.getTimeInMillis() < calInicio.getTimeInMillis()) {
+                    Toast.makeText(this, "A data final deve ser maior ou igual à inicial.", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                LatLngBounds limites = builder.build();
-                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(limites, 120));
+
+                int removidas = dbHelper.apagarTrilhasPorIntervalo(
+                        calInicio.getTimeInMillis(),
+                        calFim.getTimeInMillis()
+                );
+                carregarListaTrilhas();
+                Toast.makeText(this, removidas + " trilha(s) apagada(s) no período.", Toast.LENGTH_LONG).show();
+
+            }, hoje.get(Calendar.YEAR), hoje.get(Calendar.MONTH), hoje.get(Calendar.DAY_OF_MONTH)).show();
+
+        }, hoje.get(Calendar.YEAR), hoje.get(Calendar.MONTH), hoje.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    // Apaga todas as trilhas registradas
+    private void confirmarApagarTodas() {
+        if (listaTrilhas.isEmpty()) return;
+
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar Todas as Trilhas")
+                .setMessage("Tem certeza que deseja apagar TODAS as trilhas registradas?")
+                .setPositiveButton("Apagar Todas", (dialog, which) -> {
+                    dbHelper.apagarTodasTrilhas();
+                    carregarListaTrilhas();
+                    Toast.makeText(this, "Todas as trilhas foram apagadas.", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private class TrilhaAdapter extends BaseAdapter {
+        @Override
+        public int getCount() { return listaTrilhas.size(); }
+
+        @Override
+        public Object getItem(int position) { return listaTrilhas.get(position); }
+
+        @Override
+        public long getItemId(int position) { return listaTrilhas.get(position).getId(); }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(ConsultActivity.this)
+                        .inflate(R.layout.item_hike, parent, false);
             }
-        });
+
+            Hike trilha = listaTrilhas.get(position);
+
+            TextView tvNome = convertView.findViewById(R.id.tvItemNome);
+            TextView tvInfo = convertView.findViewById(R.id.tvItemInfo);
+            Button btnConsultar = convertView.findViewById(R.id.btnItemConsultar);
+            Button btnEditar = convertView.findViewById(R.id.btnItemEditar);
+            Button btnApagar = convertView.findViewById(R.id.btnItemApagar);
+
+            tvNome.setText(trilha.getNome());
+            tvInfo.setText(String.format(Locale.getDefault(),
+                    "Início: %s | Distância: %.2f km | Duração: %s",
+                    trilha.getDataInicio(), trilha.getDistanciaKm(), trilha.getDuracao()));
+
+            // Abre o mapa com o trajeto e dados da trilha
+            btnConsultar.setOnClickListener(v -> {
+                Intent intent = new Intent(ConsultActivity.this, ViewHikeActivity.class);
+                intent.putExtra("TRILHA_ID", trilha.getId());
+                startActivity(intent);
+            });
+
+            btnEditar.setOnClickListener(v -> exibirDialogoEditarNome(trilha));
+            btnApagar.setOnClickListener(v -> confirmarApagarTrilha(trilha));
+
+            return convertView;
+        }
     }
 }

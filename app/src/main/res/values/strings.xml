@@ -27,5 +27,6 @@
     <string name="reg_hike_started">Tracking started!</string>
     <string name="reg_hike_saved">Hike saved! Distance: %1$.2f km</string>
     <string name="reg_you_marker">You</string>
+    <string name="title_activity_view_hike">ViewHikeActivity</string>
 
 </resources>
