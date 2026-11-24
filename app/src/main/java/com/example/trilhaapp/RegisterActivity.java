@@ -122,6 +122,26 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
 
         btnIniciarTrilha.setOnClickListener(v -> iniciarTrilha());
         btnFinalizarTrilha.setOnClickListener(v -> finalizarTrilha());
+
+        // Ajusta margens do painel superior e dos botões inferiores para não colidir com as barras do Android
+        android.view.View painelTopo = findViewById(R.id.painelTempoReal);
+        android.view.View painelBotoes = findViewById(R.id.painelBotoes);
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
+            androidx.core.graphics.Insets bars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars());
+            int margemPadrao = Math.round(16 * getResources().getDisplayMetrics().density);
+
+            android.view.ViewGroup.MarginLayoutParams lpTopo =
+                    (android.view.ViewGroup.MarginLayoutParams) painelTopo.getLayoutParams();
+            lpTopo.topMargin = bars.top + margemPadrao;
+            painelTopo.setLayoutParams(lpTopo);
+
+            android.view.ViewGroup.MarginLayoutParams lpBotoes =
+                    (android.view.ViewGroup.MarginLayoutParams) painelBotoes.getLayoutParams();
+            lpBotoes.bottomMargin = bars.bottom + margemPadrao;
+            painelBotoes.setLayoutParams(lpBotoes);
+
+            return insets;
+        });
     }
 
     @Override
@@ -379,4 +399,6 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
+
+
 }

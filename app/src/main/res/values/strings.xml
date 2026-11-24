@@ -51,4 +51,8 @@
     <string name="view_duration_default">Duration: 00:00:00</string>
     <string name="view_avg_speed_default">Average Speed: 0.0 km/h</string>
     <string name="view_max_speed_default">Max Speed: 0.0 km/h</string>
+    <string name="view_no_points">This hike has no recorded coordinates.</string>
+    <string name="view_marker_start">Start of Hike</string>
+    <string name="view_marker_end">End of Hike</string>
+
 </resources>

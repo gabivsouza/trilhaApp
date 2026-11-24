@@ -51,4 +51,7 @@
     <string name="view_duration_default">Duração: 00:00:00</string>
     <string name="view_avg_speed_default">Velocidade Média: 0,0 km/h</string>
     <string name="view_max_speed_default">Velocidade Máxima: 0,0 km/h</string>
+    <string name="view_no_points">Esta trilha não possui coordenadas gravadas.</string>
+    <string name="view_marker_start">Início da Trilha</string>
+    <string name="view_marker_end">Fim da Trilha</string>
 </resources>

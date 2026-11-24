@@ -34,6 +34,12 @@ public class ConsultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consult);
 
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
+            androidx.core.graphics.Insets bars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars());
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
+
         dbHelper = new HikeHelp(this);
         lvTrilhas = findViewById(R.id.lvTrilhas);
         tvListaVazia = findViewById(R.id.tvListaVazia);
