@@ -170,13 +170,13 @@ public class RegisterActivity extends FragmentActivity implements OnMapReadyCall
         }
 
         // Pega a última localização conhecida só para abrir o mapa onde o usuário já está
-        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+        /*fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null && mMap != null) {
                 LatLng posInicial = new LatLng(location.getLatitude(), location.getLongitude());
                 atualizarMarcadorECamera(posInicial, location);
             }
         });
-    }
+    }*/
 
     private void iniciarTrilha() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
